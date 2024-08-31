@@ -1,22 +1,21 @@
 import React from 'react'
 import ProductCard from './ProductCard'
 
-const ProductList = ({data, category}) => {
+const ProductList = ({ products }) => {
+  
     return (
         <div className='flex flex-wrap justify-center items-center'>
-            {
-                data.map((product, index) => (
-                    <ProductCard
-                        key={index}
-                        title={product.title}
-                        description={product.description}
-                        price={product.price}
-                        category={product.category}
-                    />
-                ))
-            }
+            {products.map((product, index) => (
+                <ProductCard
+                    key={index}
+                    title={product.title}
+                    description={product.description}
+                    price={product.price}
+                    category={product.category}
+                />
+            ))}
         </div>
-    )
+    );
 }
 
-export default ProductList
+export default ProductList;

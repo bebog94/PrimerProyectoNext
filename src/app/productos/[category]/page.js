@@ -1,23 +1,22 @@
-'use client'
-import { useParams } from 'next/navigation'
-import React from 'react'
-import mockData from '../../../../data/mockData';
 import ProductList from '@/app/components/ProductList';
-import Header from '@/app/components/Header';
+import React from 'react';
 
-const Category = () => {
-    const { category } = useParams();
-    const filterData = category === 'all'
-     ? mockData 
-     : mockData.filter((item) => item.category.toLocaleLowerCase() === category.toLocaleLowerCase()
-    );
-    return (
-        <>
-        <Header/>
-        <h1>{category}</h1>
-        <ProductList category={category} data={filterData} />
-        </>
-    )
+const getProducts = async (category) => {
+    const data = await fetch(`/api/products/${category}`);
+    const products = await data.json();
+    return products;
 }
 
-export default Category
+const Products = async ({ params }) => {
+    const { category } = params;
+    const products = await getProducts(category);
+
+    return (
+        <>
+            <h1>Esta página es por el tipo: {category}</h1>
+            <ProductList category={category} products={products} />
+        </>
+    );
+}
+
+export default Products;
